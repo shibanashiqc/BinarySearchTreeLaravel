@@ -38,6 +38,7 @@ class SearchNodes extends Component
             }
         } else {
             $this->result = true;
+            $this->nodeData = null;
         }
 
         // dd($this->childrens, $this->position, $this->nodeTree, $this->nodeData, $this->result);
