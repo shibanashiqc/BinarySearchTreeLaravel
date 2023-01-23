@@ -34,7 +34,7 @@ class SearchNodes extends Component
             $this->nodeData = $node;
             $this->nodeTree = $node->childrenRecursive;
             if($this->position){
-            $this->childrens = $this->nodeTree->where('position', $this->position)->first()->name;
+            $this->childrens = count($this->nodeTree) > 0 ? $this->nodeTree->where('position', $this->position)->first()->name : null;
             }
         } else {
             $this->result = true;
