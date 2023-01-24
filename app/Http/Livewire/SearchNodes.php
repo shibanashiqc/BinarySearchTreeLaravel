@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class SearchNodes extends Component
 {
-    public $search_node, $position, $result = false, $nodeData, $nodeTree, $childrens;
+    public $search_node, $position, $result = false, $nodeData, $nodeTree, $childrens, $end_node_with_position;
     public function render()
     {
         return view('livewire.search-nodes');
@@ -27,7 +27,6 @@ class SearchNodes extends Component
         //     // $node->where('position', $this->position);
         // }
         $node = $node->first();
-        // dd($node);
 
         if ($node) {
             $this->result = true;
@@ -35,6 +34,18 @@ class SearchNodes extends Component
             $this->nodeTree = $node->childrenRecursive;
             if($this->position){
             $this->childrens = count($this->nodeTree) > 0 ? $this->nodeTree->where('position', $this->position)->first()->name : null;
+            $last_nodes = count($this->nodeTree) > 0 ? $this->nodeTree->where('position', $this->position)->last()->end_of_child($this->position) : null;
+            $last_node_name = '';
+            if($last_nodes){
+               if($last_nodes->childrenRecursive->where('position', $this->position)->count() > 0){
+                foreach($last_nodes->childrenRecursive->where('position', $this->position) as $last_node){
+                    $last_node_name = $last_node->name;
+                }
+               }else{
+                $last_node_name = $last_nodes->name;
+               }
+            }
+            $this->end_node_with_position = $last_node_name;
             }
         } else {
             $this->result = true;

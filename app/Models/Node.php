@@ -30,6 +30,16 @@ class Node extends Model
         return $this->children()->with('childrenRecursive');
     }
 
+    public function childrenRecursiveWithPosition($position)
+    {
+        return $this->children()->with('childrenRecursive')->where('position', $position);
+    }
+
+    public function end_of_child($position)
+    {
+        return $this->children()->with('childrenRecursive')->where('position', $position)->first();
+    }
+
     public function left_children()
     {
         return $this->hasMany(Node::class, 'parent_id')->where('position', 'L');
@@ -40,4 +50,8 @@ class Node extends Model
         return $this->hasMany(Node::class, 'parent_id')->where('position', 'R');
     }
 
+    public function end_of_child_recursive($position)
+    {
+        return $this->childrenRecursive()->last()->where('position', $position)->first();
+    }
 }

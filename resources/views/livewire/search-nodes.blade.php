@@ -44,9 +44,18 @@
                     <p>Parent Node: {{ $nodeData->parent->name ?? 'N.A' }}</p>
                     @endif
 
-                    @if($childrens)
                     <br>
+                    <h4>Last Children Node</h4>
+                    @if($end_node_with_position)
+                    {{--  <br>
                     <h4>Children Node</h4>
+                    <p>Position: {{ $position }}</p>
+                    <p>Child: {{ $childrens ?? 'N.A' }}</p>  --}}
+
+                    <p>Position: {{ $position }}</p>
+                    <p>Last Child: {{ $end_node_with_position ?? 'N.A' }}</p>
+
+                    @else
                     <p>Position: {{ $position }}</p>
                     <p>Child: {{ $childrens ?? 'N.A' }}</p>
                     @endif
